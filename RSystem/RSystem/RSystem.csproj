@@ -20,4 +20,14 @@
     <PackageReference Include="Tempus.Utils.FluentValidation" Version="0.0.1" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\RSystem.Common\RSystem.Common.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="wwwroot\lib\bootstrap\" />
+    <Folder Include="wwwroot\vendor\font-awesome\less\" />
+    <Folder Include="wwwroot\vendor\font-awesome\scss\" />
+  </ItemGroup>
+
 </Project>
