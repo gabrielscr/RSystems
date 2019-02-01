@@ -1,6 +1,6 @@
 using System;
 
-namespace RSystem.Models
+namespace RochaSystem.Models
 {
     public class ErrorViewModel
     {

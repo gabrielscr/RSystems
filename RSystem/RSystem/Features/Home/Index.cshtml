@@ -1,0 +1,71 @@
+﻿@using RochaSystem.Features.Produto
+@using MediatR
+@using RochaSystem.Domain;
+
+@functions {
+[Microsoft.AspNetCore.Mvc.Razor.Internal.RazorInject]
+public IMediator Mediator { get; private set; }
+}
+
+@{
+    string ultimaAtualizacao()
+    {
+        return "Última atualização em " + DateTime.Now;
+    }
+}
+
+<main class="column">
+    <div class="level">
+        <div class="level-left">
+            <div class="level-item">
+                <div class="title">Painel</div>
+            </div>
+        </div>
+        <div class="level-right">
+            <div class="level-item">
+                <button type="button" class="button is-small">
+                    @ultimaAtualizacao()
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div class="columns is-multiline">
+        <div class="column">
+            <div class="box">
+                <div class="heading">Produtos cadastrados</div>
+                <div class="title">56,950</div>
+            </div>
+        </div>
+        <div class="column">
+            <div class="box">
+                <div class="heading">Vendas nos últimos dias</div>
+                <div class="title"> 40,050 </div>
+            </div>
+        </div>
+        <div class="column">
+            <div class="box">
+                <div class="heading">% crescimento</div>
+                <div class="title">78% &uarr;</div>
+            </div>
+        </div>
+        <div class="column">
+            <div class="box">
+                <div class="heading">% Vendas hoje</div>
+                <div class="title">75%</div>
+            </div>
+        </div>
+        <div class="column">
+            <div class="box">
+                <div class="heading">em breve</div>
+                <div class="title">100%</div>
+            </div>
+        </div>
+        <div class="column">
+            <div class="box">
+                <div class="heading">em breve</div>
+                <div class="title">50%</div>
+            </div>
+        </div>
+    </div>
+</main>

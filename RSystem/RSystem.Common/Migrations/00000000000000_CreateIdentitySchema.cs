@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace RSystem.Data.Migrations
+namespace RSystem.Common.Migrations
 {
     public partial class CreateIdentitySchema : Migration
     {

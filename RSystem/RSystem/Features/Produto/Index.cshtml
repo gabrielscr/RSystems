@@ -1,0 +1,76 @@
+﻿@using RochaSystem.Features.Produto
+@using Tempus.Linq
+@using MediatR
+@model Index.ProdutoDto[]
+@functions {
+[Microsoft.AspNetCore.Mvc.Razor.Internal.RazorInject]
+public IMediator Mediator { get; private set; }
+}
+<main class="column">
+    <div class="level">
+        <div class="level-left">
+            <div class="level-item">
+                <div class="title">Produtos</div>
+
+            </div>
+        </div>
+        <div class="level-right">
+            <div class="level-item">
+                <a class="button is-info" asp-action="Inserir" role="button">Inserir</a>
+            </div>
+        </div>
+    </div>
+    @if (Model.IsEmpty())
+    {
+        <div class="m-lista-vazia">Nenhum produto encontrado.</div>
+    }
+    else
+    {
+      
+        <nav class="panel">
+                <p class="control has-icons-left">
+                    <input class="input is-small" type="text" placeholder="procurar">
+                    <span class="icon is-small is-left">
+                        <i class="fas fa-search" aria-hidden="true"></i>
+                    </span>
+                </p>
+                <table class="table is-fullwidth">
+                    <thead>
+                        <tr>
+                            <th><i class="fas fa-hashtag"></i></th>
+                            <th>Descrição</th>
+                            <th>Valor</th>
+                            <th>Marca</th>
+                            <th>Volume/Peso</th>
+                            <th>Unidade de Medida</th>
+                            <th>Quantidade</th>
+                            <th>Ativo</th>
+                            <th style="width: 145px"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td style="text-align: center">@item.Id</td>
+                                <td style="text-align: center">@item.Descricao</td>
+                                <td style="text-align: center">@item.Valor</td>
+                                <td style="text-align: center">@item.Marca</td>
+                                <td style="text-align: center">@item.Volume</td>
+                                <td style="text-align: center">@item.UnidadeMedida</td>
+                                <td style="text-align: center">@item.Quantidade</td>
+                                <td style="text-align: center">@(item.Ativo ? "Sim" : "Não")</td>
+                                <td>
+                                    <a class="button" id="btnEditar" asp-action="Editar" asp-route-id="@item.Id" role="button"><i class="far fa-edit"></i></a>
+                                    <a class="button" id="btnExcluir" asp-action="Excluir" asp-route-id="@item.Id" role="button"><i class="far fa-trash-alt"></i></a>
+                                </td>
+                            </tr>
+                        }
+
+                    </tbody>
+                </table>
+        </nav>
+    }
+
+</main>
+

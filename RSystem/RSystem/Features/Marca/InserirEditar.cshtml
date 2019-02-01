@@ -1,0 +1,49 @@
+﻿@using RochaSystem.Features.Marca
+@using MediatR
+@model InserirEditar.Command
+
+@{
+    Layout = "_Layout";
+}
+
+@functions {
+[Microsoft.AspNetCore.Mvc.Razor.Internal.RazorInject]
+public IMediator Mediator { get; private set; }
+}
+
+@{
+    if (!Model.Editando)
+    {
+        ViewData["Title"] = "Inserir Marca";
+    }
+    else
+    {
+        ViewData["Title"] = "Editar Marca";
+    }
+}
+<h2>@ViewData["Title"]</h2>
+
+<form action="" method="post" asp-antiforgery="true" autocomplete="off" class="no-ajax">
+    <div asp-validation-summary="ModelOnly"></div>
+    <input type="hidden" asp-for="Editando" />
+    <div class="row">
+        <div class="form-group col-md-2">
+            <label asp-for="Id" class="control-label">Código</label>
+            <input asp-for="Id" required class="form-control" autofocus asp-disabled="@Model.Editando" />
+            <span asp-validation-for="Id"></span>
+        </div>
+
+        <div class="form-group col-md-10">
+            <label asp-for="Descricao" class="control-label">Descrição</label>
+            <input type="text" asp-for="Descricao" required maxlength="10" class="form-control" />
+            <span asp-validation-for="Descricao"></span>
+        </div>
+    </div>
+    <div class="form-group">
+        <button type="submit" class="btn btn-primary">Confirmar</button>
+    </div>
+</form>
+
+<div>
+    <a asp-action="Index">Voltar para lista</a>
+</div>

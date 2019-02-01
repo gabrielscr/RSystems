@@ -3,33 +3,23 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using RSystem.Models;
+using RochaSystem.Features.Home;
+using RochaSystem.Models;
 
-namespace RSystem.Controllers
+namespace RochaSystem.Features.Home
 {
     public class HomeController : Controller
     {
+        readonly IMediator _mediator;
+
+        public HomeController(IMediator mediator)
+        {
+            _mediator = mediator;
+        }
+
         public IActionResult Index()
-        {
-            return View();
-        }
-
-        public IActionResult About()
-        {
-            ViewData["Message"] = "Your application description page.";
-
-            return View();
-        }
-
-        public IActionResult Contact()
-        {
-            ViewData["Message"] = "Your contact page.";
-
-            return View();
-        }
-
-        public IActionResult Privacy()
         {
             return View();
         }

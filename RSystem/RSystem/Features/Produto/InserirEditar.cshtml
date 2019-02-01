@@ -1,0 +1,156 @@
+﻿@using RochaSystem.Features.Produto
+@using MediatR
+@using RochaSystem.Domain;
+
+@model InserirEditar.Command
+
+@{
+    Layout = "_Layout";
+}
+
+@functions {
+[Microsoft.AspNetCore.Mvc.Razor.Internal.RazorInject]
+public IMediator Mediator { get; private set; }
+}
+
+@{
+    if (!Model.Editando)
+    {
+        ViewData["Title"] = "Inserir Produto";
+    }
+    else
+    {
+        ViewData["Title"] = "Editar Produto";
+    }
+
+    var marcas = (await Mediator.Send(new RochaSystem.Features.Marca.Index.Query())).Select(s => new SelectListItem { Text = s.Descricao, Value = s.Id.ToString() });
+
+    var unidadeMedidas = Enum.GetValues(typeof(UnidadeMedidaEnum)).Cast<UnidadeMedidaEnum>().Select(v => new SelectListItem
+    {
+        Text = v.ToString(),
+        Value = ((int)v).ToString()
+    }).ToList();
+
+}
+
+<main class="column">
+    <div class="level">
+        <div class="level-left">
+            <div class="level-item">
+                <div class="title">@ViewData["Title"]</div>
+
+            </div>
+        </div>
+    </div>
+
+    <form action="" method="post" asp-antiforgery="true" autocomplete="off" class="no-ajax">
+        <div asp-validation-summary="ModelOnly"></div>
+        <input type="hidden" asp-for="Editando" />
+
+        <div class="columns">
+            <div class="column is-one-fifth">
+                <label class="label">Código</label>
+                <div class="control">
+                    <input asp-for="Id" class="input" type="number">
+                    <span asp-validation-for="Id"></span>
+                </div>
+            </div>
+            <div class="column">
+                <label class="label">Título</label>
+                <div class="control">
+                    <input asp-for="Descricao" class="input" type="text">
+                    <span asp-validation-for="Descricao"></span>
+                </div>
+            </div>
+            <div class="column is-one-fifth">
+                <label class="label">Valor</label>
+                <div class="control">
+                    <input asp-for="Valor" class="input" type="number">
+                    <span asp-validation-for="Valor"></span>
+                </div>
+            </div>
+
+            <div class="column is-one-fifth">
+                <label class="label">Marca</label>
+                <div class="control">
+                    <div class="select is-fullwidth">
+                        <select asp-for="MarcaId" asp-items="marcas" required>
+                            <option selected hidden disabled>---------</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="columns">
+            <div class="column is-one-fifth">
+                <label class="label">Volume/Peso</label>
+                <div class="control">
+                    <input asp-for="Volume" class="input" type="number" placeholder="Text input">
+                    <span asp-validation-for="Volume"></span>
+                </div>
+            </div>
+            <div class="column is-one-quarter">
+                <label class="label">Unidade de Medida</label>
+                <div class="control">
+                    <div class="select is-fullwidth">
+                        <select asp-for="UnidadeMedida" asp-items="unidadeMedidas" required>
+                            <option selected hidden disabled>---------</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="column is-one-fifth">
+                <label class="label">Quantidade</label>
+                <div class="control">
+                    <input asp-for="Quantidade" class="input" type="number" placeholder="Text input">
+                    <span asp-validation-for="Quantidade"></span>
+                </div>
+            </div>
+            <div class="column is-half">
+                <label class="label">Upload de Foto</label>
+                <label class="file-label">
+                    <input asp-for="Imagem" class="file-input" type="file" name="resume">
+                    <span class="file-cta">
+                        <span class="file-icon">
+                            <i class="fas fa-upload"></i>
+                        </span>
+                        <span class="file-label">
+                            Escolher arquivo...
+                        </span>
+                    </span>
+                </label>
+            </div>
+        </div>
+
+        <div class="columns">
+            <div class="column">
+                <div class="b-checkbox is-warning">
+                    <label class="checkbox">Está ativo?</label>
+                    <input type="checkbox" class="styled" asp-for="Ativo" />
+                </div>
+            </div>
+        </div>
+
+        <div class="columns">
+            <div class="column">
+                <label class="label">Descrição detalhada</label>
+                <div class="control">
+                    <textarea asp-for="DescricaoDetalhada" class="textarea" placeholder="Informações/Especificações técnicas do produto"></textarea>
+                </div>
+            </div>
+        </div>
+
+        <div class="field is-grouped">
+            <div class="control">
+                <button class="button is-info">
+                    Inserir
+                </button>
+                <button asp-action="Index" class="button is-light">
+                    Voltar
+                </button>
+            </div>
+        </div>
+    </form>
+</main>
+
