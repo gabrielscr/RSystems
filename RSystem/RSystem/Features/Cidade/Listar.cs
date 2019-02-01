@@ -1,11 +1,11 @@
 ﻿using MediatR;
-using RochaSystem.Infra;
+using RSystem.Common.Infrastructure;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using RochaSystem.Domain;
+using RSystem.Common.Domain;
 using Microsoft.EntityFrameworkCore;
 
 namespace RochaSystem.Features.Cidade
@@ -41,7 +41,7 @@ namespace RochaSystem.Features.Cidade
             public async Task<CidadeDto[]> Handle(Query request, CancellationToken cancellationToken)
             {
                 var consulta = _adminContext
-                    .Set<Domain.Cidade>()
+                    .Set<RSystem.Common.Domain.Cidade>()
                     .AsNoTracking()
                     
                     .Select(p => new CidadeDto

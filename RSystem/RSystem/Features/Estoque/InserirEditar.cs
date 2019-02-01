@@ -1,7 +1,7 @@
 ﻿using FluentValidation;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
-using RochaSystem.Infra;
+using RSystem.Common.Infrastructure;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -47,7 +47,7 @@ namespace RochaSystem.Features.Estoque
                 {
 
                     var ultimoId = await _adminContext
-                        .Set<Domain.Estoque>()
+                        .Set<RSystem.Common.Domain.Estoque>()
                         .Take(1)
                         .OrderByDescending(o => o.Id)
                         .Select(s => s.Id)
@@ -62,7 +62,7 @@ namespace RochaSystem.Features.Estoque
                 else
                 {
                     command = await _adminContext
-                        .Set<Domain.Estoque>()
+                        .Set<RSystem.Common.Domain.Estoque>()
                         .AsNoTracking()
                         .Select(m => new Command
                         {
@@ -92,18 +92,18 @@ namespace RochaSystem.Features.Estoque
 
             public async Task<int> Handle(Command message, CancellationToken cancellationToken)
             {
-                Domain.Estoque estoque;
+                RSystem.Common.Domain.Estoque estoque;
 
                 if (!message.Editando)
                 {
-                    estoque = new Domain.Estoque { };
+                    estoque = new RSystem.Common.Domain.Estoque { };
 
                     await _adminContext.AddAsync(estoque);
                 }
                 else
                 {
                     estoque = await _adminContext
-                        .Set<Domain.Estoque>()
+                        .Set<RSystem.Common.Domain.Estoque>()
                         .FirstOrDefaultAsync(m => m.Id == message.Id);
 
                     ChecarSe.Encontrou(estoque);

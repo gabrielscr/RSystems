@@ -1,6 +1,6 @@
 ﻿using MediatR;
 using Microsoft.EntityFrameworkCore;
-using RochaSystem.Infra;
+using RSystem.Common.Infrastructure;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -28,7 +28,7 @@ namespace RochaSystem.Features.Produto
 
             public async Task<int> Handle(Command message, CancellationToken cancellationToken)
             {
-                var item = await _adminContext.Set<Domain.Marca>()
+                var item = await _adminContext.Set<RSystem.Common.Domain.Marca>()
                     .FirstOrDefaultAsync(p => p.Id == message.Id);
 
                 ChecarSe.Encontrou(item);

@@ -1,11 +1,11 @@
 ﻿using MediatR;
-using RochaSystem.Infra;
+using RSystem.Common.Infrastructure;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using RochaSystem.Domain;
+using RSystem.Common.Domain;
 using Microsoft.EntityFrameworkCore;
 
 namespace RochaSystem.Features.Marca
@@ -37,7 +37,7 @@ namespace RochaSystem.Features.Marca
             public async Task<MarcaDto[]> Handle(Query message, CancellationToken cancellationToken)
             {
                 var consulta = await _adminContext
-                    .Set<Domain.Marca>()
+                    .Set<RSystem.Common.Domain.Marca>()
                     .AsNoTracking()
                     .OrderBy(m => m.Id)
                     .Select(m => new MarcaDto

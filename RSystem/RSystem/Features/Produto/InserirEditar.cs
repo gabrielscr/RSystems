@@ -1,8 +1,8 @@
 ﻿using FluentValidation;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
-using RochaSystem.Domain;
-using RochaSystem.Infra;
+using RSystem.Common.Domain;
+using RSystem.Common.Infrastructure;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -63,7 +63,7 @@ namespace RochaSystem.Features.Produto
                 {
 
                     var ultimoId = await _adminContext
-                        .Set<Domain.Produto>()
+                        .Set<RSystem.Common.Domain.Produto>()
                         .Take(1)
                         .OrderByDescending(o => o.Id)
                         .Select(s => s.Id)
@@ -78,7 +78,7 @@ namespace RochaSystem.Features.Produto
                 else
                 {
                     command = await _adminContext
-                        .Set<Domain.Produto>()
+                        .Set<RSystem.Common.Domain.Produto>()
                         .AsNoTracking()
                         .Select(m => new Command
                         {
@@ -116,18 +116,18 @@ namespace RochaSystem.Features.Produto
 
             public async Task<int> Handle(Command message, CancellationToken cancellationToken)
             {
-                Domain.Produto produto;
+                RSystem.Common.Domain.Produto produto;
 
                 if (!message.Editando)
                 {
-                    produto = new Domain.Produto { };
+                    produto = new RSystem.Common.Domain.Produto { };
 
                     await _adminContext.AddAsync(produto);
                 }
                 else
                 {
                     produto = await _adminContext
-                        .Set<Domain.Produto>()
+                        .Set<RSystem.Common.Domain.Produto>()
                         .FirstOrDefaultAsync(m => m.Id == message.Id);
 
                     ChecarSe.Encontrou(produto);

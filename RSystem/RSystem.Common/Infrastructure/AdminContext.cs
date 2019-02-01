@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using RochaSystem.Domain;
+using RSystem.Common.Domain;
 using Tempus.Utils.EntityFrameworkCore;
 
 namespace RSystem.Common.Infrastructure

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using RochaSystem.Features.Home;
-using RochaSystem.Models;
+using RSystem;
 
 namespace RochaSystem.Features.Home
 {

@@ -1,7 +1,6 @@
 using System;
 
-namespace RochaSystem.Models
-{
+namespace RSystem { 
     public class ErrorViewModel
     {
         public string RequestId { get; set; }
