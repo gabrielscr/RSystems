@@ -1,11 +1,11 @@
 ﻿using MediatR;
-using RSystem.Common.Infrastructure;
+using RSystem.Infrastructure;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using RSystem.Common.Domain;
+using RSystem.Domain;
 using Microsoft.EntityFrameworkCore;
 
 namespace RochaSystem.Features.Estoque
@@ -37,7 +37,7 @@ namespace RochaSystem.Features.Estoque
             public async Task<EstoqueDto[]> Handle(Query message, CancellationToken cancellationToken)
             {
                 var consulta = await _adminContext
-                    .Set<RSystem.Common.Domain.Estoque>()
+                    .Set<RSystem.Domain.Estoque>()
                     .AsNoTracking()
                     .OrderBy(m => m.Id)
                     .Select(m => new EstoqueDto

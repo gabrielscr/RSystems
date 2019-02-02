@@ -13,7 +13,7 @@ using System.Reflection;
 using FluentValidation;
 using Microsoft.AspNetCore.Localization;
 using System.Globalization;
-using RSystem.Common.Infrastructure;
+using RSystem.Infrastructure;
 
 namespace RSystem
 {
@@ -49,10 +49,9 @@ namespace RSystem
                 .AddFeatureFolders()
                 .SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
-            services
-                .AddDbContext<AdminContext>(options =>
-                    options.UseSqlServer(DataSettings.RSystemConnection, opt => opt.EnableRetryOnFailure()
-                        .MigrationsAssembly("RSystem.Common")));
+            services.AddDbContext<AdminContext>(options =>
+                 options.UseSqlServer(Configuration.GetConnectionString("RSystemConnection")));
+
 
             services.AddMediatR(typeof(Startup));
         }

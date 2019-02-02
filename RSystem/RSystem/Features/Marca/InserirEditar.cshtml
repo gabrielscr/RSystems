@@ -20,30 +20,45 @@ public IMediator Mediator { get; private set; }
     {
         ViewData["Title"] = "Editar Marca";
     }
+
+    var estoques = (await Mediator.Send(new RochaSystem.Features.Estoque.Index.Query()))
+.Select(s => new SelectListItem { Text = s.Descricao, Value = s.Id.ToString() });
+
 }
-<h2>@ViewData["Title"]</h2>
+<section class="dashboard-header section-padding">
+    <div class="container-fluid">
+        <div class="row d-flex align-items-md-stretch">
 
-<form action="" method="post" asp-antiforgery="true" autocomplete="off" class="no-ajax">
-    <div asp-validation-summary="ModelOnly"></div>
-    <input type="hidden" asp-for="Editando" />
-    <div class="row">
-        <div class="form-group col-md-2">
-            <label asp-for="Id" class="control-label">Código</label>
-            <input asp-for="Id" required class="form-control" autofocus asp-disabled="@Model.Editando" />
-            <span asp-validation-for="Id"></span>
-        </div>
+            <form action="" method="post" asp-antiforgery="true" autocomplete="off" class="no-ajax">
+                <div asp-validation-summary="ModelOnly"></div>
+                <input type="hidden" asp-for="Editando" />
+                <div class="row">
+                    <div class="form-group col-md-2">
+                        <label asp-for="Id" class="control-label">Código</label>
+                        <input asp-for="Id" required class="form-control" autofocus asp-disabled="@Model.Editando" />
+                        <span asp-validation-for="Id"></span>
+                    </div>
 
-        <div class="form-group col-md-10">
-            <label asp-for="Descricao" class="control-label">Descrição</label>
-            <input type="text" asp-for="Descricao" required maxlength="10" class="form-control" />
-            <span asp-validation-for="Descricao"></span>
+                    <div class="form-group col-md-10">
+                        <label asp-for="Descricao" class="control-label">Descrição</label>
+                        <input type="text" asp-for="Descricao" required maxlength="10" class="form-control" />
+                        <span asp-validation-for="Descricao"></span>
+                    </div>
+
+                    <div class="form-group col-md-5">
+                        <label asp-for="EstoqueId" class="control-label">Estoque</label>
+                        <select asp-for="EstoqueId" class="form-control" asp-items="estoques" required>
+                            <option selected hidden disabled>---------</option>
+                        </select>
+                        <span asp-validation-for="EstoqueId"></span>
+                    </div>
+
+                </div>
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary">Confirmar</button>
+                    <button asp-action="Index" class="btn btn-danger">Cancelar</button>
+                </div>
+            </form>
         </div>
     </div>
-    <div class="form-group">
-        <button type="submit" class="btn btn-primary">Confirmar</button>
-    </div>
-</form>
-
-<div>
-    <a asp-action="Index">Voltar para lista</a>
-</div>
+</section>

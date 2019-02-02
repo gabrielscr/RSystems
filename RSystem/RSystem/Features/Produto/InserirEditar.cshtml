@@ -1,6 +1,6 @@
 ﻿@using RochaSystem.Features.Produto
 @using MediatR
-@using RSystem.Common.Domain;
+@using RSystem.Domain;
 
 @model InserirEditar.Command
 
@@ -23,7 +23,8 @@ public IMediator Mediator { get; private set; }
         ViewData["Title"] = "Editar Produto";
     }
 
-    var marcas = (await Mediator.Send(new RochaSystem.Features.Marca.Index.Query())).Select(s => new SelectListItem { Text = s.Descricao, Value = s.Id.ToString() });
+    var marcas = (await Mediator.Send(new RochaSystem.Features.Marca.Index.Query()))
+.Select(s => new SelectListItem { Text = s.Descricao, Value = s.Id.ToString() });
 
     var unidadeMedidas = Enum.GetValues(typeof(UnidadeMedidaEnum)).Cast<UnidadeMedidaEnum>().Select(v => new SelectListItem
     {
@@ -33,124 +34,68 @@ public IMediator Mediator { get; private set; }
 
 }
 
-<main class="column">
-    <div class="level">
-        <div class="level-left">
-            <div class="level-item">
-                <div class="title">@ViewData["Title"]</div>
+<section class="dashboard-header section-padding">
+    <div class="container-fluid">
+        <div class="row d-flex align-items-md-stretch">
 
-            </div>
+            <form action="" method="post" asp-antiforgery="true" autocomplete="off" class="no-ajax">
+                <div asp-validation-summary="ModelOnly"></div>
+                <input type="hidden" asp-for="Editando" />
+                <div class="row">
+                    <div class="form-group col-md-2">
+                        <label asp-for="Id" class="control-label">Código</label>
+                        <input asp-for="Id" required class="form-control" autofocus asp-disabled="@Model.Editando" />
+                        <span asp-validation-for="Id"></span>
+                    </div>
+
+                    <div class="form-group col-md-5">
+                        <label asp-for="Descricao" class="control-label">Descrição</label>
+                        <input type="text" asp-for="Descricao" required maxlength="50" class="form-control" />
+                        <span asp-validation-for="Descricao"></span>
+                    </div>
+
+                    <div class="form-group col-md-3">
+                        <label asp-for="Valor" class="control-label">Valor</label>
+                        <input type="number" asp-for="Valor" required maxlength="10" class="form-control" />
+                        <span asp-validation-for="Valor"></span>
+                    </div>
+
+                    <div class="form-group col-md-5">
+                        <label asp-for="MarcaId" class="control-label">Marca</label>
+                        <select asp-for="MarcaId" class="form-control" asp-items="marcas" required>
+                            <option selected hidden disabled>---------</option>
+                        </select>
+                        <span asp-validation-for="MarcaId"></span>
+                    </div>
+
+                    <div class="form-group col-md-2">
+                        <label asp-for="UnidadeMedida" class="control-label">Unidade de Medida</label>
+                        <select asp-for="UnidadeMedida" class="form-control" asp-items="unidadeMedidas" required>
+                            <option selected hidden disabled>---------</option>
+                        </select>
+                        <span asp-validation-for="UnidadeMedida"></span>
+                    </div>
+
+                    <div class="form-group col-md-2">
+                        <label asp-for="Quantidade" class="control-label">Quantidade</label>
+                        <input type="number" asp-for="Quantidade" class="form-control" />
+                        <span asp-validation-for="Quantidade"></span>
+                    </div>
+
+                    <div class="form-group col-md-5">
+                        <div class="form-check">
+                            <input type="checkbox" asp-for="Ativo" class="form-control-custom" />
+                            <label asp-for="Ativo" class="form-check-label">Ativo</label>
+                            <span asp-validation-for="Ativo"></span>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary">Confirmar</button>
+                    <button asp-action="Index" class="btn btn-danger">Cancelar</button>
+                </div>
+            </form>
         </div>
     </div>
-
-    <form action="" method="post" asp-antiforgery="true" autocomplete="off" class="no-ajax">
-        <div asp-validation-summary="ModelOnly"></div>
-        <input type="hidden" asp-for="Editando" />
-
-        <div class="columns">
-            <div class="column is-one-fifth">
-                <label class="label">Código</label>
-                <div class="control">
-                    <input asp-for="Id" class="input" type="number">
-                    <span asp-validation-for="Id"></span>
-                </div>
-            </div>
-            <div class="column">
-                <label class="label">Título</label>
-                <div class="control">
-                    <input asp-for="Descricao" class="input" type="text">
-                    <span asp-validation-for="Descricao"></span>
-                </div>
-            </div>
-            <div class="column is-one-fifth">
-                <label class="label">Valor</label>
-                <div class="control">
-                    <input asp-for="Valor" class="input" type="number">
-                    <span asp-validation-for="Valor"></span>
-                </div>
-            </div>
-
-            <div class="column is-one-fifth">
-                <label class="label">Marca</label>
-                <div class="control">
-                    <div class="select is-fullwidth">
-                        <select asp-for="MarcaId" asp-items="marcas" required>
-                            <option selected hidden disabled>---------</option>
-                        </select>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="columns">
-            <div class="column is-one-fifth">
-                <label class="label">Volume/Peso</label>
-                <div class="control">
-                    <input asp-for="Volume" class="input" type="number" placeholder="Text input">
-                    <span asp-validation-for="Volume"></span>
-                </div>
-            </div>
-            <div class="column is-one-quarter">
-                <label class="label">Unidade de Medida</label>
-                <div class="control">
-                    <div class="select is-fullwidth">
-                        <select asp-for="UnidadeMedida" asp-items="unidadeMedidas" required>
-                            <option selected hidden disabled>---------</option>
-                        </select>
-                    </div>
-                </div>
-            </div>
-            <div class="column is-one-fifth">
-                <label class="label">Quantidade</label>
-                <div class="control">
-                    <input asp-for="Quantidade" class="input" type="number" placeholder="Text input">
-                    <span asp-validation-for="Quantidade"></span>
-                </div>
-            </div>
-            <div class="column is-half">
-                <label class="label">Upload de Foto</label>
-                <label class="file-label">
-                    <input asp-for="Imagem" class="file-input" type="file" name="resume">
-                    <span class="file-cta">
-                        <span class="file-icon">
-                            <i class="fas fa-upload"></i>
-                        </span>
-                        <span class="file-label">
-                            Escolher arquivo...
-                        </span>
-                    </span>
-                </label>
-            </div>
-        </div>
-
-        <div class="columns">
-            <div class="column">
-                <div class="b-checkbox is-warning">
-                    <label class="checkbox">Está ativo?</label>
-                    <input type="checkbox" class="styled" asp-for="Ativo" />
-                </div>
-            </div>
-        </div>
-
-        <div class="columns">
-            <div class="column">
-                <label class="label">Descrição detalhada</label>
-                <div class="control">
-                    <textarea asp-for="DescricaoDetalhada" class="textarea" placeholder="Informações/Especificações técnicas do produto"></textarea>
-                </div>
-            </div>
-        </div>
-
-        <div class="field is-grouped">
-            <div class="control">
-                <button class="button is-info">
-                    Inserir
-                </button>
-                <button asp-action="Index" class="button is-light">
-                    Voltar
-                </button>
-            </div>
-        </div>
-    </form>
-</main>
-
+</section>

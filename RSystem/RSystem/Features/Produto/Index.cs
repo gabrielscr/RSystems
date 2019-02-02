@@ -1,6 +1,6 @@
 ﻿using MediatR;
-using RSystem.Common.Infrastructure;
-using RSystem.Common.Domain;
+using RSystem.Infrastructure;
+using RSystem.Domain;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -49,10 +49,10 @@ namespace RochaSystem.Features.Produto
 
             public async Task<ProdutoDto[]> Handle(Query message, CancellationToken cancellationToken)
             {
-                var totalProdutos = _adminContext.Set<RSystem.Common.Domain.Produto>().Select(p => p.Quantidade).Count();
+                var totalProdutos = _adminContext.Set<RSystem.Domain.Produto>().Select(p => p.Quantidade).Count();
 
                 var consulta = await _adminContext
-                    .Set<RSystem.Common.Domain.Produto>()
+                    .Set<RSystem.Domain.Produto>()
                     .AsNoTracking()
                     .OrderBy(m => m.Id)
                     .Select(m => new ProdutoDto

@@ -3,17 +3,10 @@
 @using MediatR
 @model Index.MarcaDto[]
 @functions {
-    [Microsoft.AspNetCore.Mvc.Razor.Internal.RazorInject]
-    public IMediator Mediator { get; private set; }
+[Microsoft.AspNetCore.Mvc.Razor.Internal.RazorInject]
+public IMediator Mediator { get; private set; }
 
 
-    //string getTotalProdutos()
-    //{
-
-    //    var totalProdutos = await Mediator.Send()
-
-    //    return 
-    //}
 
 }
 
@@ -21,44 +14,44 @@
     ViewData["Title"] = "Marcas";
     Layout = "_Layout";
 }
-<h2>@ViewData["Title"]</h2>
 
-<p>
-    <a class="btn btn-dark" asp-action="Inserir" role="button">Inserir</a>
-</p>
+<section class="dashboard-header section-padding">
+    <div class="container-fluid">
+        <div class="row d-flex align-items-md-stretch">
+            <p>
+                <a class="btn btn-dark" asp-action="Inserir" role="button">Inserir</a>
+            </p>
 
-@if (Model.IsEmpty())
-{
-    <div class="m-lista-vazia">Nenhuma marca encontrada.</div>
-}
-else
-{
-    <table class="table table-striped">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Descrição</th>
-                <th style="width: 145px"></th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var item in Model)
+            @if (Model.IsEmpty())
             {
-                <tr>
-                    <td>@item.Id</td>
-                    <td>@item.Descricao</td>
-                    <td class="td-custom">
-                        <a class="btn btn-dark" id="btnEditar" asp-action="Editar" asp-route-id="@item.Id" role="button"><i class="far fa-edit"></i></a>
-                        <a class="btn btn-danger" id="btnExcluir" asp-action="Excluir" asp-route-id="@item.Id" role="button"><i class="far fa-trash-alt"></i></a>
-                </tr>
+                <div class="m-lista-vazia">Nenhuma marca encontrada.</div>
             }
-        </tbody>
-    </table>
-
-    <style>
-
-        .td-custom {
-            display: inline-flex;
-        }
-    </style>
-}
+            else
+            {
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Id</th>
+                            <th>Descrição</th>
+                            <th>Estoque</th>
+                            <th style="width: 145px"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>@item.Id</td>
+                                <td>@item.Descricao</td>
+                                <td>@item.Estoque</td>
+                                <td class="td-custom">
+                                    <a class="btn btn-dark" id="btnEditar" asp-action="Editar" asp-route-id="@item.Id" role="button"><i class="far fa-edit"></i></a>
+                                    <a class="btn btn-danger" id="btnExcluir" asp-action="Excluir" asp-route-id="@item.Id" role="button"><i class="far fa-trash-alt"></i></a>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            }
+        </div>
+    </div>
+</section>

@@ -1,7 +1,7 @@
 ﻿using FluentValidation;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
-using RSystem.Common.Infrastructure;
+using RSystem.Infrastructure;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,6 +25,8 @@ namespace RochaSystem.Features.Marca
 
             public string Descricao { get; set; }
 
+            public int EstoqueId { get; set; }
+
             public bool Editando { get; set; }
         }
 
@@ -47,7 +49,7 @@ namespace RochaSystem.Features.Marca
                 {
 
                     var ultimoId = await _adminContext
-                        .Set<RSystem.Common.Domain.Marca>()
+                        .Set<RSystem.Domain.Marca>()
                         .Take(1)
                         .OrderByDescending(o => o.Id)
                         .Select(s => s.Id)
@@ -62,12 +64,13 @@ namespace RochaSystem.Features.Marca
                 else
                 {
                     command = await _adminContext
-                        .Set<RSystem.Common.Domain.Marca>()
+                        .Set<RSystem.Domain.Marca>()
                         .AsNoTracking()
                         .Select(m => new Command
                         {
                             Id = m.Id,
-                            Descricao = m.Descricao
+                            Descricao = m.Descricao,
+                            EstoqueId = m.EstoqueId
 
                         })
                         .FirstOrDefaultAsync(m => m.Id == message.Id);
@@ -92,23 +95,24 @@ namespace RochaSystem.Features.Marca
 
             public async Task<int> Handle(Command message, CancellationToken cancellationToken)
             {
-                RSystem.Common.Domain.Marca marca;
+                RSystem.Domain.Marca marca;
 
                 if (!message.Editando)
                 {
-                    marca = new RSystem.Common.Domain.Marca { };
+                    marca = new RSystem.Domain.Marca { };
 
                     await _adminContext.AddAsync(marca);
                 }
                 else
                 {
                     marca = await _adminContext
-                        .Set<RSystem.Common.Domain.Marca>()
+                        .Set<RSystem.Domain.Marca>()
                         .FirstOrDefaultAsync(m => m.Id == message.Id);
 
                     ChecarSe.Encontrou(marca);
                 }
 
+                marca.EstoqueId = message.EstoqueId;
                 marca.Descricao = message.Descricao;
                 marca.Id = message.Id.Value;
 

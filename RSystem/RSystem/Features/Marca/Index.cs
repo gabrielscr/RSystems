@@ -1,11 +1,11 @@
 ﻿using MediatR;
-using RSystem.Common.Infrastructure;
+using RSystem.Infrastructure;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using RSystem.Common.Domain;
+using RSystem.Domain;
 using Microsoft.EntityFrameworkCore;
 
 namespace RochaSystem.Features.Marca
@@ -21,6 +21,8 @@ namespace RochaSystem.Features.Marca
             public int Id { get; set; }
 
             public string Descricao { get; set; }
+
+            public string Estoque { get; set; }
         }
 
         public class QueryHandler : IRequestHandler<Query, MarcaDto[]>
@@ -37,13 +39,14 @@ namespace RochaSystem.Features.Marca
             public async Task<MarcaDto[]> Handle(Query message, CancellationToken cancellationToken)
             {
                 var consulta = await _adminContext
-                    .Set<RSystem.Common.Domain.Marca>()
+                    .Set<RSystem.Domain.Marca>()
                     .AsNoTracking()
                     .OrderBy(m => m.Id)
                     .Select(m => new MarcaDto
                     {
                         Id = m.Id,
-                        Descricao = m.Descricao
+                        Descricao = m.Descricao,
+                        Estoque = m.Estoque.Descricao
                     })
                     .ToArrayAsync();
 

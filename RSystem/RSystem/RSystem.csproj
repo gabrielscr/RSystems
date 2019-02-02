@@ -21,10 +21,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\RSystem.Common\RSystem.Common.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
+    <Folder Include="Migrations\Admin\" />
     <Folder Include="wwwroot\vendor\font-awesome\less\" />
     <Folder Include="wwwroot\vendor\font-awesome\scss\" />
   </ItemGroup>
