@@ -48,7 +48,7 @@ public IMediator Mediator { get; private set; }
                         <span asp-validation-for="Id"></span>
                     </div>
 
-                    <div class="form-group col-md-5">
+                    <div class="form-group col-md-7">
                         <label asp-for="Descricao" class="control-label">Descrição</label>
                         <input type="text" asp-for="Descricao" required maxlength="50" class="form-control" />
                         <span asp-validation-for="Descricao"></span>
@@ -60,7 +60,7 @@ public IMediator Mediator { get; private set; }
                         <span asp-validation-for="Valor"></span>
                     </div>
 
-                    <div class="form-group col-md-5">
+                    <div class="form-group col-md-3">
                         <label asp-for="MarcaId" class="control-label">Marca</label>
                         <select asp-for="MarcaId" class="form-control" asp-items="marcas" required>
                             <option selected hidden disabled>---------</option>
@@ -68,7 +68,13 @@ public IMediator Mediator { get; private set; }
                         <span asp-validation-for="MarcaId"></span>
                     </div>
 
-                    <div class="form-group col-md-2">
+                    <div class="form-group col-md-3">
+                        <label asp-for="Volume" class="control-label">Volume/Peso</label>
+                        <input type="number" asp-for="Volume" class="form-control" />
+                        <span asp-validation-for="Volume"></span>
+                    </div>
+
+                    <div class="form-group col-md-3">
                         <label asp-for="UnidadeMedida" class="control-label">Unidade de Medida</label>
                         <select asp-for="UnidadeMedida" class="form-control" asp-items="unidadeMedidas" required>
                             <option selected hidden disabled>---------</option>
@@ -76,18 +82,15 @@ public IMediator Mediator { get; private set; }
                         <span asp-validation-for="UnidadeMedida"></span>
                     </div>
 
-                    <div class="form-group col-md-2">
+                    <div class="form-group col-md-3">
                         <label asp-for="Quantidade" class="control-label">Quantidade</label>
                         <input type="number" asp-for="Quantidade" class="form-control" />
                         <span asp-validation-for="Quantidade"></span>
                     </div>
 
-                    <div class="form-group col-md-5">
-                        <div class="form-check">
-                            <input type="checkbox" asp-for="Ativo" class="form-control-custom" />
-                            <label asp-for="Ativo" class="form-check-label">Ativo</label>
-                            <span asp-validation-for="Ativo"></span>
-                        </div>
+                    <div class="form-group col-xl-12">
+                            <label for="exampleFormControlTextarea1">Descrição detalhada</label>
+                            <textarea asp-for="DescricaoDetalhada" class="form-control" id="exampleFormControlTextarea1" rows="10"></textarea>
                     </div>
 
                 </div>

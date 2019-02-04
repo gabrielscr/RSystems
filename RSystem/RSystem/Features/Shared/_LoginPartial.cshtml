@@ -19,7 +19,7 @@
 else
 {
     <ul class="nav navbar-nav navbar-right">
-        <li><a asp-area="Identity" asp-page="/Account/Register">Register</a></li>
-        <li><a asp-area="Identity" asp-page="/Account/Login">Login</a></li>
+        <li><a asp-area="Identity" asp-page="/Account/Register" class="nav-link logout"> <span class="d-none d-sm-inline-block">Registrar</span><i class="fas fa-sign-out-alt"></i></a></li>
+        <li><a asp-area="Identity" asp-page="/Account/Login" class="nav-link logout"> <span class="d-none d-sm-inline-block">Login</span><i class="fas fa-sign-out-alt"></i></a></li>
     </ul>
 }

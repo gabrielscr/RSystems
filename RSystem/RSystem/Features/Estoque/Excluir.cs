@@ -28,7 +28,7 @@ namespace RochaSystem.Features.Estoque
 
             public async Task<int> Handle(Command message, CancellationToken cancellationToken)
             {
-                var item = await _adminContext.Set<RSystem.Domain.Marca>()
+                var item = await _adminContext.Set<RSystem.Domain.Estoque>()
                     .FirstOrDefaultAsync(p => p.Id == message.Id);
 
                 ChecarSe.Encontrou(item);

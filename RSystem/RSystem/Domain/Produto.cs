@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Http;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -23,10 +24,11 @@ namespace RSystem.Domain
 
         public double Volume { get; set; }
 
-        public string Imagem { get; set; }
-
         public string DescricaoDetalhada { get; set; }
 
         public UnidadeMedidaEnum UnidadeMedida { get; set; }
+
+        public byte[] Imagem { get; set; }
+
     }
 }

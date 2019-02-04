@@ -45,10 +45,7 @@
                 <h5 class="sidenav-heading">Configurações</h5>
                 <ul id="side-admin-menu" class="side-menu list-unstyled">
                     <li> <a href="#"> <i class="icon-screen"> </i>Acessos</a></li>
-                    <li>
-                        <a href="#">
-                            <i class="icon-flask"> </i>Usuários
-                        </a>
+                    <li> <a asp-controller="Usuario" asp-action="Index"><i class="fas fa-user"> </i>Usuários </a>
                     </li>
                 </ul>
             </div>
@@ -107,7 +104,7 @@
                             </li>
 
                             <!-- Log out-->
-                            <li class="nav-item"><a href="login.html" class="nav-link logout"> <span class="d-none d-sm-inline-block">Logout</span><i class="fas fa-sign-out-alt"></i></a></li>
+                            <partial name="_LoginPartial" />
                         </ul>
                     </div>
                 </div>

@@ -1,5 +1,6 @@
 ﻿using FluentValidation;
 using MediatR;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using RSystem.Domain;
 using RSystem.Infrastructure;
@@ -37,7 +38,7 @@ namespace RochaSystem.Features.Produto
 
             public bool Ativo { get; set; }
 
-            public string Imagem { get; set; }
+            public IFormFile Imagem { get; set; }
 
             public string DescricaoDetalhada { get; set; }
 
@@ -90,7 +91,6 @@ namespace RochaSystem.Features.Produto
                             Ativo = m.Ativo,
                             Quantidade = m.Quantidade,
                             Volume = m.Volume,
-                            Imagem = m.Imagem,
                             DescricaoDetalhada = m.DescricaoDetalhada
 
                         })
@@ -141,7 +141,6 @@ namespace RochaSystem.Features.Produto
                 produto.Ativo = message.Ativo;
                 produto.Quantidade = message.Quantidade;
                 produto.Volume = message.Volume;
-                produto.Imagem = message.Imagem;
                 produto.DescricaoDetalhada = message.DescricaoDetalhada;
 
                 await _adminContext.SaveChangesAsync();

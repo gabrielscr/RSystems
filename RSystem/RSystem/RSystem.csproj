@@ -21,7 +21,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Areas\Identity\Services\" />
+    <Folder Include="Features\Login\" />
     <Folder Include="Migrations\Admin\" />
+    <Folder Include="wwwroot\img\uploads\" />
     <Folder Include="wwwroot\vendor\font-awesome\less\" />
     <Folder Include="wwwroot\vendor\font-awesome\scss\" />
   </ItemGroup>

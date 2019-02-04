@@ -42,6 +42,10 @@ namespace RSystem.Infrastructure
             {
                 opts.Property(p => p.Id).ValueGeneratedNever();
             });
+
+            modelBuilder.Entity<Usuario>();
         }
+
+        public DbSet<RSystem.Domain.Usuario> Usuario { get; set; }
     }
 }
