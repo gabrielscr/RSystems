@@ -134,6 +134,32 @@ namespace RSystem.Migrations.Admin
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "EstoqueCidade",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    CidadeId = table.Column<int>(nullable: false),
+                    EstoqueId = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_EstoqueCidade", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_EstoqueCidade_Cidade_CidadeId",
+                        column: x => x.CidadeId,
+                        principalTable: "Cidade",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_EstoqueCidade_Estoque_EstoqueId",
+                        column: x => x.EstoqueId,
+                        principalTable: "Estoque",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_Cidade_EstadoId",
                 table: "Cidade",
@@ -143,6 +169,16 @@ namespace RSystem.Migrations.Admin
                 name: "IX_Estado_PaisId",
                 table: "Estado",
                 column: "PaisId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_EstoqueCidade_CidadeId",
+                table: "EstoqueCidade",
+                column: "CidadeId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_EstoqueCidade_EstoqueId",
+                table: "EstoqueCidade",
+                column: "EstoqueId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Marca_EstoqueId",
@@ -158,7 +194,7 @@ namespace RSystem.Migrations.Admin
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Cidade");
+                name: "EstoqueCidade");
 
             migrationBuilder.DropTable(
                 name: "Produto");
@@ -167,16 +203,19 @@ namespace RSystem.Migrations.Admin
                 name: "Usuario");
 
             migrationBuilder.DropTable(
-                name: "Estado");
+                name: "Cidade");
 
             migrationBuilder.DropTable(
                 name: "Marca");
 
             migrationBuilder.DropTable(
-                name: "Pais");
+                name: "Estado");
 
             migrationBuilder.DropTable(
                 name: "Estoque");
+
+            migrationBuilder.DropTable(
+                name: "Pais");
         }
     }
 }

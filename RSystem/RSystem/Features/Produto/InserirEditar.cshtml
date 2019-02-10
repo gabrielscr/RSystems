@@ -36,6 +36,8 @@ public IMediator Mediator { get; private set; }
 
 <section class="dashboard-header section-padding">
     <div class="container-fluid">
+        <h2>@ViewData["Title"]</h2>
+        <hr />
         <div class="row d-flex align-items-md-stretch">
 
             <form action="" method="post" asp-antiforgery="true" autocomplete="off" class="no-ajax">
@@ -89,16 +91,22 @@ public IMediator Mediator { get; private set; }
                     </div>
 
                     <div class="form-group col-xl-12">
-                            <label for="exampleFormControlTextarea1">Descrição detalhada</label>
-                            <textarea asp-for="DescricaoDetalhada" class="form-control" id="exampleFormControlTextarea1" rows="10"></textarea>
+                        <label for="exampleFormControlTextarea1">Descrição detalhada</label>
+                        <textarea asp-for="DescricaoDetalhada" class="form-control" id="exampleFormControlTextarea1" rows="10"></textarea>
                     </div>
 
                 </div>
                 <div class="form-group">
                     <button type="submit" class="btn btn-primary">Confirmar</button>
-                    <button asp-action="Index" class="btn btn-danger">Cancelar</button>
+                    <button onclick="voltar()" class="btn btn-dark">Voltar</button>
                 </div>
             </form>
         </div>
     </div>
 </section>
+
+<script>
+function voltar() {
+  window.history.back();
+}
+</script>

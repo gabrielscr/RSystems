@@ -21,8 +21,13 @@ public IMediator Mediator { get; private set; }
         ViewData["Title"] = "Editar Estoque";
     }
 }
+
+<link rel="stylesheet" href="~/lib/selectize/selectize.bootstrap3.css" asp-append-version="true">
 <section class="dashboard-header section-padding">
+
     <div class="container-fluid">
+        <h2>@ViewData["Title"]</h2>
+        <hr />
         <div class="row d-flex align-items-md-stretch">
 
             <form action="" method="post" asp-antiforgery="true" autocomplete="off" class="no-ajax">
@@ -43,10 +48,9 @@ public IMediator Mediator { get; private set; }
                 </div>
                 <div class="form-group">
                     <button type="submit" class="btn btn-primary">Confirmar</button>
-                    <button asp-action="Index" class="btn btn-danger">Cancelar</button>
+                    <button onclick="voltar()" class="btn btn-dark">Voltar</button>
                 </div>
             </form>
-
         </div>
     </div>
 </section>

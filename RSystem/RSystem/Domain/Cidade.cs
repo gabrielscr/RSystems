@@ -1,10 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace RSystem.Domain
+﻿namespace RSystem.Domain
 {
+
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Threading.Tasks;
+
+
     public class Cidade
     {
         public int Id { get; set; }

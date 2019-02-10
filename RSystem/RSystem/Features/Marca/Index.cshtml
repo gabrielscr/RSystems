@@ -6,8 +6,6 @@
 [Microsoft.AspNetCore.Mvc.Razor.Internal.RazorInject]
 public IMediator Mediator { get; private set; }
 
-
-
 }
 
 @{
@@ -17,6 +15,8 @@ public IMediator Mediator { get; private set; }
 
 <section class="dashboard-header section-padding">
     <div class="container-fluid">
+        <h2>@ViewData["Title"]</h2>
+        <hr />
         <div class="row d-flex align-items-md-stretch">
             <p>
                 <a class="btn btn-dark" asp-action="Inserir" role="button">Inserir</a>

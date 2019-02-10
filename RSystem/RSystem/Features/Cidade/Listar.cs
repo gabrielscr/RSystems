@@ -7,15 +7,16 @@ using System.Threading;
 using System.Threading.Tasks;
 using RSystem.Domain;
 using Microsoft.EntityFrameworkCore;
+using Tempus.Linq;
 
-namespace RochaSystem.Features.Cidade
+namespace RSystem.Features.Cidade
 {
     public class Listar
     {
 
         public class Query : IRequest<CidadeDto[]>
         {
-
+            public int[] Ids { get; set; }
         }
 
         public class CidadeDto
@@ -40,6 +41,7 @@ namespace RochaSystem.Features.Cidade
 
             public async Task<CidadeDto[]> Handle(Query request, CancellationToken cancellationToken)
             {
+
                 var consulta = _adminContext
                     .Set<RSystem.Domain.Cidade>()
                     .AsNoTracking()
@@ -53,6 +55,11 @@ namespace RochaSystem.Features.Cidade
                     })
                     .OrderBy(p => p.Nome)
                     .AsQueryable();
+
+                if (request.Ids.IsNotEmpty())
+                {
+                    consulta = consulta.Where(c => request.Ids.Contains(c.Id));
+                }
 
                 return await consulta.ToArrayAsync();
             }

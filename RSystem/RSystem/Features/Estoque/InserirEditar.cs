@@ -1,12 +1,14 @@
 ﻿using FluentValidation;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
+using RSystem.Domain;
 using RSystem.Infrastructure;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Tempus.Linq;
 using Tempus.Utils;
 
 namespace RochaSystem.Features.Estoque
@@ -96,7 +98,7 @@ namespace RochaSystem.Features.Estoque
 
                 if (!message.Editando)
                 {
-                    estoque = new RSystem.Domain.Estoque { };
+                    estoque = new RSystem.Domain.Estoque {};
 
                     await _adminContext.AddAsync(estoque);
                 }
@@ -117,5 +119,7 @@ namespace RochaSystem.Features.Estoque
                 return estoque.Id;
             }
         }
+
+
     }
 }

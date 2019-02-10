@@ -62,6 +62,25 @@ namespace RSystem.Migrations.Admin
                     b.ToTable("Estoque");
                 });
 
+            modelBuilder.Entity("RSystem.Domain.EstoqueCidade", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("CidadeId");
+
+                    b.Property<int>("EstoqueId");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CidadeId");
+
+                    b.HasIndex("EstoqueId");
+
+                    b.ToTable("EstoqueCidade");
+                });
+
             modelBuilder.Entity("RSystem.Domain.Marca", b =>
                 {
                     b.Property<int>("Id");
@@ -153,6 +172,19 @@ namespace RSystem.Migrations.Admin
                     b.HasOne("RSystem.Domain.Pais", "Pais")
                         .WithMany()
                         .HasForeignKey("PaisId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("RSystem.Domain.EstoqueCidade", b =>
+                {
+                    b.HasOne("RSystem.Domain.Cidade", "Cidade")
+                        .WithMany()
+                        .HasForeignKey("CidadeId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("RSystem.Domain.Estoque", "Estoque")
+                        .WithMany("EstoqueCidades")
+                        .HasForeignKey("EstoqueId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
